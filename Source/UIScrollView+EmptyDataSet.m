@@ -934,7 +934,11 @@ Class dzn_baseClassToSwizzleForTarget(id target)
     
     // If applicable, set the custom view's constraints
     if (_customView) {
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
+//        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
+        CGFloat padding = self.bounds.size.width/2-_customView.bounds.size.width/2;
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding@750)-[customView(>=10)]-(padding@750)-|" options:0 metrics:@{@"padding":@(padding)} views:@{@"customView":_customView}]];
+        //        [self.contentView addConstraint:[self.contentView equallyRelatedConstraintWithView:_customView attribute:NSLayoutAttributeCenterX]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[customView]|" options:0 metrics:nil views:@{@"customView":_customView}]];
     }
     else {
